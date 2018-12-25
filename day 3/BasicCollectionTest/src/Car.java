@@ -1,4 +1,4 @@
-public class Car {
+public class Car implements Comparable<Car> {
 	private String make;
 	private String model;
 	private int year;
@@ -47,5 +47,10 @@ public class Car {
 		} else if (!model.equals(other.model))
 			return false;
 		return true;
+	}
+
+	@Override
+	public int compareTo(Car car) {
+		return make.compareTo(car.make);
 	}
 }
