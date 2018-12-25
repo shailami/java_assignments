@@ -1,9 +1,9 @@
+import static org.junit.Assert.*;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class CarTest {
@@ -13,6 +13,7 @@ public class CarTest {
 	private Car car4;
 	Set<Car> set = new HashSet<Car>();
 	TreeSet<Car> treeSet = new TreeSet<Car>();
+	private String result = "";
 
 	@Before
 	public void setUp() {
@@ -23,28 +24,36 @@ public class CarTest {
 	}
 
 	@Test
-	@Ignore
-	public void test() {
+	public void DuplicateTest() {
 		set.add(car1);
 		set.add(car2);
 		set.add(car3);
 		set.add(car4);
 		Iterator<Car> iterator = set.iterator();
 		while (iterator.hasNext()) {
-			System.out.println(iterator.next().toString());
+			result += iterator.next().toString();
+			// System.out.println(iterator.next().toString());
 		}
+		String expected = "Car [make=BMW, model=J3, year=2000, price=9.99999996E8]"
+				+ "Car [make=MERCEDES, model=J4, year=2000, price=9999996.0]"
+				+ "Car [make=AUDI, model=J5, year=200, price=8076.0]";
+		assertEquals(expected, result);
 	}
 
 	@Test
-	public void AscendingOrder() {
+	public void AscendingOrderTest() {
 		treeSet.add(car1);
 		treeSet.add(car2);
 		treeSet.add(car3);
 		treeSet.add(car4);
 		Iterator<Car> iterator = treeSet.iterator();
 		while (iterator.hasNext()) {
-			System.out.println(iterator.next().toString());
+			result += iterator.next().toString();
 		}
+		String expected = "Car [make=AUDI, model=J5, year=200, price=8076.0]"
+				+ "Car [make=BMW, model=J3, year=2000, price=9.99999996E8]"
+				+ "Car [make=MERCEDES, model=J4, year=2000, price=9999996.0]";
+		assertEquals(expected, result);
 	}
 
 }

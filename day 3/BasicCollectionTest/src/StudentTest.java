@@ -1,3 +1,4 @@
+import static org.junit.Assert.*;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -5,9 +6,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
-
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class StudentTest {
@@ -20,6 +19,7 @@ public class StudentTest {
 	Set<Student> set = new LinkedHashSet<Student>();
 	SortedSet<Student> set1 = new TreeSet<Student>();
 	HashMap<String, String> hashMap = new HashMap<String, String>();
+	private String result = "";
 
 	@Before
 	public void setUp() {
@@ -32,7 +32,6 @@ public class StudentTest {
 	}
 
 	@Test
-	@Ignore
 	public void MaintainingOrderTest() {
 		set.add(s1);
 		set.add(s2);
@@ -42,12 +41,17 @@ public class StudentTest {
 		set.add(s6);
 		Iterator<Student> iterator = set.iterator();
 		while (iterator.hasNext()) {
-			System.out.println(iterator.next().toString());
+			result += iterator.next().toString();
 		}
+		String expected = "Student [name=shailaja, rollno=102380, age=21, favFruit=Mango]"
+				+ "Student [name=priyanka, rollno=482567, age=21, favFruit=orange]"
+				+ "Student [name=hemlata, rollno=7453723, age=21, favFruit=banana]"
+				+ "Student [name=shubham, rollno=93462653, age=21, favFruit=apple]"
+				+ "Student [name=tejas, rollno=348736, age=21, favFruit=litchi]";
+		assertEquals(expected, result);
 	}
 
 	@Test
-	@Ignore
 	public void NaturalOrderTest() {
 		set1.add(s1);
 		set1.add(s2);
@@ -58,8 +62,14 @@ public class StudentTest {
 
 		Iterator<Student> iterator = set1.iterator();
 		while (iterator.hasNext()) {
-			System.out.println(iterator.next().toString());
+			result += iterator.next().toString();
 		}
+		String expected = "Student [name=hemlata, rollno=7453723, age=21, favFruit=banana]"
+				+ "Student [name=priyanka, rollno=482567, age=21, favFruit=orange]"
+				+ "Student [name=shailaja, rollno=102380, age=21, favFruit=Mango]"
+				+ "Student [name=shubham, rollno=93462653, age=21, favFruit=apple]"
+				+ "Student [name=tejas, rollno=348736, age=21, favFruit=litchi]";
+		assertEquals(expected, result);
 	}
 
 	@Test
@@ -72,15 +82,20 @@ public class StudentTest {
 		hashMap.put(s6.getName(), s6.getFavFruit());
 
 		for (Map.Entry e : hashMap.entrySet()) {
-			System.out.println(e.getKey() + "," + e.getValue());
+			result += e.getKey() + "," + e.getValue();
 		}
+		String expected = "shubham,apple" + "shailaja,Mango" + "hemlata,banana"
+				+ "priyanka,orange" + "tejas,litchi";
+		assertEquals(expected, result);
 
-		System.out.println(hashMap.get(s1.getName()));
-		System.out.println(hashMap.get(s2.getName()));
-		System.out.println(hashMap.get(s3.getName()));
-		System.out.println(hashMap.get(s4.getName()));
-		System.out.println(hashMap.get(s5.getName()));
+		String result1 = (hashMap.get(s1.getName()));
+		result1 += (hashMap.get(s2.getName()));
+		result1 += (hashMap.get(s3.getName()));
+		result1 += (hashMap.get(s4.getName()));
+		result1 += (hashMap.get(s5.getName()));
+
+		String expected1 = "Mango" + "orange" + "banana" + "apple" + "litchi";
+		assertEquals(expected1, result1);
 
 	}
-
 }
